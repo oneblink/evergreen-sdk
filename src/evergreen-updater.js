@@ -17,18 +17,20 @@ export type IonicDeploy = {
   redirect: (string) => void,
   parseUpdate: (string, ParseUpdateOptions, Function, Function) => void,
   deploy: (string, Function, Function) => void,
+  extract: (string, Function, Function) => void,
+  init: (string, string) => void
 }
 
 */
 
 export default class EvergreenUpdater {
-  /*:: ionicDeploy: any */
+  /*:: ionicDeploy: IonicDeploy */
   /*:: appId: string */
   /*:: tennant: string */
   /*:: zipUrl: string */
 
   constructor (
-    ionicDeploy /*: any */,
+    ionicDeploy /*: IonicDeploy */,
     appId /*: string */,
     tennant /*: string */,
     platformId /*: string */
@@ -63,14 +65,18 @@ export default class EvergreenUpdater {
       .catch(() => false)
   }
 
-  download (onProgressCb /*: function */ = () => true) {
+  download (onProgressCb /*: ?function */ = () => true) {
+    if (typeof onProgressCb !== 'function') {
+      throw new Error('progress call back must be a function')
+    }
+
     return new Promise((resolve, reject) => {
       const onSuccess = (result) => {
         if (result === 'true') {
           return this._extractUpdate(onProgressCb).then(resolve)
         }
 
-        onProgressCb('download', result)
+        onProgressCb && onProgressCb('download', result)
       }
 
       const onError = (err) => reject(err)
@@ -119,9 +125,9 @@ export default class EvergreenUpdater {
     })
   }
 
-  _extractUpdate (onProgressCb /*: function */) /*: Promise<void | string> */ {
+  _extractUpdate (onProgressCb /*: ?function */ = () => true) /*: Promise<void | string> */ {
     return new Promise((resolve, reject) => {
-      const onSuccess = (result) => result === 'done' ? resolve() : onProgressCb('extract', result)
+      const onSuccess = (result) => result === 'done' ? resolve() : (onProgressCb && onProgressCb('extract', result))
       const onError = (err) => reject(err)
 
       this.ionicDeploy.extract(this.appId, onSuccess, onError)

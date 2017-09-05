@@ -46,7 +46,7 @@ Resolves with `true` if an update is available, `false` if not
 
 ### download (progressCB: function(stage: string, progress: number)): Promise<void>
 
-- progressCB - called whenever Ionic Deploy reports progress. `stage` will be one of 'download' or 'extract'
+- progressCB - called whenever Ionic Deploy reports progress. `stage` will be one of 'download' or 'extract', `progress` is the percent complete for that particular stage
 
 Resolves on successful download, rejects if an error occured
 

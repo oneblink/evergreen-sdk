@@ -14,7 +14,7 @@ test('should throw if required arguments are missing', () => {
 })
 
 test('should set the properties', () => {
-  const expectedIonic = {}
+  const expectedIonic = {init: () => true}
   const expectedAppId = 'appId'
   const expectedTennant = 'tennant'
   const expectedZipUrl = `https://evergreen.blinkm.io/${expectedTennant}/${expectedAppId}/www-platformId.zip`
@@ -29,7 +29,7 @@ test('should set the properties', () => {
 
 describe('eTag handling', () => {
   let eu
-  let mockIonic = {}
+  let mockIonic = {init: () => true}
 
   beforeEach(() => {
     global.fetch = () => Promise.resolve({
@@ -71,7 +71,7 @@ describe('eTag handling', () => {
 
 describe('downloading', () => {
   let eu
-  let mockIonic = {}
+  let mockIonic = {init: () => true}
 
   beforeEach(() => {
     global.fetch = () => Promise.resolve({
