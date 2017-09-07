@@ -21,40 +21,46 @@ export type IonicDeploy = {
   init: (string, string) => void
 }
 
+export type EvergreenUpdaterOptions = {
+  appId: string,
+  tennantId: string,
+  ionicDeploy: ?IonicDeploy,
+  platformId: ?string
+}
+
 */
 
 export default class EvergreenUpdater {
   /*:: ionicDeploy: IonicDeploy */
   /*:: appId: string */
-  /*:: tennant: string */
   /*:: zipUrl: string */
 
-  constructor (
-    ionicDeploy /*: IonicDeploy */,
-    appId /*: string */,
-    tennant /*: string */,
-    platformId /*: string */
-  ) /*:void */ {
-    if (!ionicDeploy) {
-      throw new Error('ionicDeploy Plugin is missing')
+  constructor ({
+    appId,
+    tennantId,
+    ionicDeploy,
+    platformId
+  } /*: EvergreenUpdaterOptions */) /*: void */ {
+    if (!ionicDeploy && !window.IonicDeploy) {
+      throw new Error('ionicDeploy Plugin is missing, did you wait for the deviceready event?')
+    }
+
+    if (!platformId && !window.cordova) {
+      throw new Error('Cordova is not initialized yet, did you wait for the deviceready event?')
     }
 
     if (!appId) {
       throw new Error('appId was not specified')
     }
 
-    if (!tennant) {
-      throw new Error('tennant was not specified')
+    if (!tennantId) {
+      throw new Error('tennantId was not specified')
     }
 
-    if (!platformId) {
-      throw new Error('platformId was not specified')
-    }
-
-    this.ionicDeploy = ionicDeploy
+    this.ionicDeploy = ionicDeploy || window.IonicDeploy
+    platformId = platformId || window.cordova.platformId.toLowerCase()
     this.appId = appId
-    this.tennant = tennant
-    this.zipUrl = `https://evergreen.blinkm.io/${this.tennant}/${this.appId}/www-${platformId}.zip`
+    this.zipUrl = `https://evergreen.blinkm.io/${tennantId}/${this.appId}/www-${platformId}.zip`
 
     this.ionicDeploy.init(this.appId, 'https://evergreen.blinkm.io/fake/deploy')
   }

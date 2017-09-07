@@ -21,7 +21,7 @@ You must make sure the deviceready event from cordova has fired before using thi
 const EvergreenUpdater = require('@blinkmobile/evergreen')
 
 document.addEventListener('deviceready', function () {
-  const eu = new EvergreenUpdater(window.IonicDeploy, 'appId', 'blinkTennantId', window.cordova.platformId.toLowerCase())
+  const eu = new EvergreenUpdater({ appId: 'appId', tennantId: 'blinkTennantId' })
 
   eu.check().then((updateAvailable) => {
     if (updateAvailable) {
@@ -33,12 +33,13 @@ document.addEventListener('deviceready', function () {
 
 ## API
 
-### Constructor (IonicDeploy: Object, appId: string, tennantId: string, platformId: string)
+### Constructor (options: object)
 
-- IonicDeploy - The Ionic Deploy plugin instance
-- appId - Your Cordova app id from `config.xml`
-- tennantId - Your Blink Mobile Tennant Id
-- platform Id - the cordova platform Id
+`options.appId` - Your Cordova app id from `config.xml`
+`options.tennantId` - Your Blink Mobile Tennant Id
+`options.ionicDeploy` - The Ionic Deploy plugin (optional, will use window.IonicDeploy if not specified)
+`options.platformId` - The cordova app id from `config.xml` (optional, will use cordova.platformId if not specified)
+
 
 ### check () : Promise<boolean>
 
