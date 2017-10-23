@@ -1,7 +1,7 @@
 {
   "name": "@blinkmobile/evergreen-sdk",
   "description": "A Module to handle getting and using an evergreen update made with the Blink Buildbots",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "author": "BlinkMobile <developers@blinkmobile.com.au> (https://github.com/blinkmobile)",
   "bugs": {
     "url": "https://github.com/blinkmobile/evergreen-sdk/issues"
