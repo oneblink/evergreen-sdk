@@ -15,7 +15,7 @@ module.exports = {
   output: {
     path: distPath,
     filename: '[name].js',
-    library: 'bmEvergreen',
+    library: 'EvergreenUpdater',
     libraryTarget: 'umd'
   },
   plugins: [
