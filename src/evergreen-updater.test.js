@@ -8,18 +8,18 @@ beforeEach(() => {
 
 test('should throw if required arguments are missing', () => {
   expect(() => new EvergreenUpdater({})).toThrow('ionicDeploy Plugin is missing, did you wait for the deviceready event?')
-  expect(() => new EvergreenUpdater({tennantId: 't', ionicDeploy: {}, platformId: 'android'})).toThrow('appId was not specified')
-  expect(() => new EvergreenUpdater({appId: 't', ionicDeploy: {}, platformId: 'android'})).toThrow('tennantId was not specified')
-  expect(() => new EvergreenUpdater({tennantId: 't', ionicDeploy: {}, appId: 'id'})).toThrow('Cordova is not initialized yet, did you wait for the deviceready event?')
+  expect(() => new EvergreenUpdater({tenantId: 't', ionicDeploy: {}, platformId: 'android'})).toThrow('appId was not specified')
+  expect(() => new EvergreenUpdater({appId: 't', ionicDeploy: {}, platformId: 'android'})).toThrow('tenantId was not specified')
+  expect(() => new EvergreenUpdater({tenantId: 't', ionicDeploy: {}, appId: 'id'})).toThrow('Cordova is not initialized yet, did you wait for the deviceready event?')
 })
 
 test('should set the properties', () => {
   const expectedIonic = {init: () => true}
   const expectedAppId = 'appId'
-  const expectedTennant = 'tennant'
-  const expectedZipUrl = `https://evergreen.blinkm.io/${expectedTennant}/${expectedAppId}/www-platformId.zip`
+  const expectedTenant = 'tenant'
+  const expectedZipUrl = `https://evergreen.blinkm.io/${expectedTenant}/${expectedAppId}/www-platformId.zip`
 
-  const eu = new EvergreenUpdater({ionicDeploy: expectedIonic, appId: expectedAppId, tennantId: expectedTennant, platformId: 'platformId'})
+  const eu = new EvergreenUpdater({ionicDeploy: expectedIonic, appId: expectedAppId, tenantId: expectedTenant, platformId: 'platformId'})
 
   expect(eu.ionicDeploy).toBe(expectedIonic)
   expect(eu.appId).toBe(expectedAppId)
@@ -39,7 +39,7 @@ describe('eTag handling', () => {
 
     mockIonic.parseUpdate = jest.fn((appId, options, onSuccess) => onSuccess('true'))
 
-    eu = new EvergreenUpdater({ionicDeploy: mockIonic, appId: 'appId', tennantId: 'b', platformId: 'platformId'})
+    eu = new EvergreenUpdater({ionicDeploy: mockIonic, appId: 'appId', tenantId: 'b', platformId: 'platformId'})
   })
 
   test('should return an eTag', (done) => {
@@ -82,7 +82,7 @@ describe('downloading', () => {
     mockIonic.parseUpdate = jest.fn()
     mockIonic.download = jest.fn()
     mockIonic.extract = jest.fn()
-    eu = new EvergreenUpdater({ionicDeploy: mockIonic, appId: 'a', tennantId: 'b', platformId: 'platformId'})
+    eu = new EvergreenUpdater({ionicDeploy: mockIonic, appId: 'a', tenantId: 'b', platformId: 'platformId'})
   })
 
   test('should resolve with `done`', (done) => {

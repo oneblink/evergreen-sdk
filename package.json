@@ -1,27 +1,15 @@
 {
-  "name": "@blinkmobile/evergreen",
+  "name": "@blinkmobile/evergreen-sdk",
+  "description": "A Module to handle getting and using an evergreen update made with the Blink Buildbots",
   "version": "1.0.0",
-  "description": "[![npm](https://img.shields.io/npm/v/@blinkmobile/evergreen.svg?maxAge=2592000)](https://www.npmjs.com/package/@blinkmobile/evergreen)",
-  "main": "dist/bm-evergreen-updater-legacy.js",
-  "unpkg": "dist/bm-evergreen-updater-legacy.min.js",
-  "module": "src/evergreen-updater.js",
-  "jsnext:main": "src/evergreen-updater.js",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "prepublish": "npm run build",
-    "test": "npm run jest",
-    "eslint": "eslint --fix --cache .",
-    "pretest": "npm run eslint && npm run flow",
-    "jest": "jest",
-    "build": "npm run test && webpack",
-    "flow": "flow check"
+  "author": "BlinkMobile <developers@blinkmobile.com.au> (https://github.com/blinkmobile)",
+  "bugs": {
+    "url": "https://github.com/blinkmobile/evergreen-sdk/issues"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "contributors": [
+    "Simon Dobie <simondobie23@gmail.com> (https://github.com/simonmarklar)",
+    "Matt Carroll <mat.carroll139@gmail.com.au> (https://github.com/mymattcarroll)"
+  ],
   "dependencies": {
     "whatwg-fetch": "^2.0.3"
   },
@@ -37,11 +25,21 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
-    "flow-bin": "^0.53.1",
+    "fixpack": "^2.3.1",
+    "flow-bin": "^0.57.0",
     "http-server": "^0.10.0",
-    "jest": "^20.0.4",
+    "jest": "^21.0.0",
     "webpack": "^3.5.5"
   },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "https://github.com/blinkmobile/evergreen-sdk#readme",
   "jest": {
     "verbose": true,
     "collectCoverage": true,
@@ -51,11 +49,34 @@
       }
     }
   },
-  "engines": {
-    "node": ">=8",
-    "npm": ">=5"
-  },
+  "jsnext:main": "src/evergreen-updater.js",
+  "keywords": [
+    "blinkmobile",
+    "cordova",
+    "evergreen",
+    "ionic",
+    "mobile"
+  ],
+  "license": "ISC",
+  "main": "dist/bm-evergreen-updater-legacy.js",
+  "module": "src/evergreen-updater.js",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blinkmobile/evergreen-sdk.git"
+  },
+  "scripts": {
+    "build": "npm run test && webpack",
+    "eslint": "eslint --fix --cache .",
+    "fixpack": "fixpack",
+    "flow": "flow check",
+    "jest": "jest",
+    "posttest": "npm run fixpack",
+    "prepublish": "npm run build",
+    "pretest": "npm run eslint && npm run flow",
+    "test": "npm run jest"
+  },
+  "unpkg": "dist/bm-evergreen-updater-legacy.min.js"
 }

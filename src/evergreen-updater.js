@@ -23,7 +23,7 @@ export type IonicDeploy = {
 
 export type EvergreenUpdaterOptions = {
   appId: string,
-  tennantId: string,
+  tenantId: string,
   ionicDeploy: ?IonicDeploy,
   platformId: ?string
 }
@@ -37,7 +37,7 @@ export default class EvergreenUpdater {
 
   constructor ({
     appId,
-    tennantId,
+    tenantId,
     ionicDeploy,
     platformId
   } /*: EvergreenUpdaterOptions */) /*: void */ {
@@ -53,14 +53,14 @@ export default class EvergreenUpdater {
       throw new Error('appId was not specified')
     }
 
-    if (!tennantId) {
-      throw new Error('tennantId was not specified')
+    if (!tenantId) {
+      throw new Error('tenantId was not specified')
     }
 
     this.ionicDeploy = ionicDeploy || window.IonicDeploy
     platformId = platformId || window.cordova.platformId.toLowerCase()
     this.appId = appId
-    this.zipUrl = `https://evergreen.blinkm.io/${tennantId}/${this.appId}/www-${platformId}.zip`
+    this.zipUrl = `https://evergreen.blinkm.io/${tenantId}/${this.appId}/www-${platformId}.zip`
 
     this.ionicDeploy.init(this.appId, 'https://evergreen.blinkm.io/fake/deploy')
   }
@@ -71,7 +71,7 @@ export default class EvergreenUpdater {
       .catch(() => false)
   }
 
-  download (onProgressCb /*: ?function */ = () => true) {
+  download (onProgressCb /*: ?function */ = () => true)  /* : Promise<void> */{
     if (typeof onProgressCb !== 'function') {
       throw new Error('progress call back must be a function')
     }
@@ -131,7 +131,7 @@ export default class EvergreenUpdater {
     })
   }
 
-  _extractUpdate (onProgressCb /*: ?function */ = () => true) /*: Promise<void | string> */ {
+  _extractUpdate (onProgressCb /*: ?function */ = () => true) /*: Promise<void> */ {
     return new Promise((resolve, reject) => {
       const onSuccess = (result) => result === 'done' ? resolve() : (onProgressCb && onProgressCb('extract', result))
       const onError = (err) => reject(err)
