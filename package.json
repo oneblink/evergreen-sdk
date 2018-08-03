@@ -31,7 +31,7 @@
     "flow-bin": "^0.64.0",
     "http-server": "^0.11.0",
     "jest": "^22.0.4",
-    "regenerator-runtime": "^0.11.1",
+    "regenerator-runtime": "^0.12.1",
     "webpack": "^3.5.5"
   },
   "engines": {
