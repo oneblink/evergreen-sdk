@@ -24,7 +24,7 @@
     "babel-preset-flow": "^6.23.0",
     "clean-webpack-plugin": "^0.1.16",
     "eslint": "^4.5.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-import": "2.14.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "fixpack": "^2.3.1",
